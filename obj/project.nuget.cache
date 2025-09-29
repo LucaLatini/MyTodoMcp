@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MPcKZgfGRkc=",
+  "dgSpecHash": "ULYA7vDaVhg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj",
+  "projectFilePath": "c:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Luca\\.nuget\\packages\\microsoft.data.sqlite.core\\9.0.9\\microsoft.data.sqlite.core.9.0.9.nupkg.sha512",
     "C:\\Users\\Luca\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.9\\microsoft.entityframeworkcore.9.0.9.nupkg.sha512",

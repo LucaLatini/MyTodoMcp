@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj": {}
+    "c:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj": {
+    "c:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj",
+        "projectUniqueName": "c:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj",
         "projectName": "MyTodoMcp",
-        "projectPath": "C:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj",
+        "projectPath": "c:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\MyTodoMcp.csproj",
         "packagesPath": "C:\\Users\\Luca\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\obj\\",
+        "outputPath": "c:\\Users\\Luca\\Progetti_Claude\\MyTodoMcp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
