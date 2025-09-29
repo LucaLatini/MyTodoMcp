@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyTodoMcp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+41ca273363d254146f027511faa09ae91395db80")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8c47259e1c043f012d6520df4f47017b439550c")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyTodoMcp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyTodoMcp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
