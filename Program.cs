@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using ModelContextProtocol.Server;
 using MyTodoMcp.Data;
 using MyTodoMcp.Tools;
+using Microsoft.Extensions.Hosting;
 
 Console.WriteLine(" Avvio MCP Todo List Server...\n");
 
@@ -18,13 +18,13 @@ var existingCount = await db.TodoItems.CountAsync();
 Console.WriteLine($"Trovati {existingCount} task esistenti\n");
 
 // Configura il server MCP
-var builder = IHost.CreateApplicationBuilder(args);
+var builder = Host.CreateApplicationBuilder(args);
 
-// Registra i servizi
+// Registra i servizi per la dependency injection
 builder.Services.AddSingleton<TodoDbContext>(db);
 builder.Services.AddScoped<TodoTool>();
 
-// Configura il server MCP
+// Configura il server MCP e registra automaticamente i tools
 builder.Services.AddMcpServer(options =>
 {
     options.ServerInfo = new ServerInfo
@@ -32,6 +32,8 @@ builder.Services.AddMcpServer(options =>
         Name = "MyTodoMcp",
         Version = "1.0.0"
     };
+    // Aggiunta per registrare automaticamente tutti i tools nell'applicazione
+    options.WithToolsFromAssembly(typeof(Program).Assembly); 
 });
 
 var host = builder.Build();
