@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.9" />
-    <PackageReference Include="ModelContextProtocol.NET" Version="*" />
+    <PackageReference Include="ModelContextProtocol" Version="0.4.0-preview.1" />
   </ItemGroup>
 
 </Project>

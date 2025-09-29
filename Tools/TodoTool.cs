@@ -31,12 +31,12 @@ public class TodoTool
         // Validazione input
         if (string.IsNullOrWhiteSpace(description))
         {
-            return "❌ Errore: La descrizione non può essere vuota!";
+            return " Errore: La descrizione non può essere vuota!";
         }
 
         if (priority < 1 || priority > 3)
         {
-            return "❌ Errore: La priorità deve essere 1, 2 o 3!";
+            return " Errore: La priorità deve essere 1, 2 o 3!";
         }
 
         // Crea nuovo todo
@@ -53,9 +53,9 @@ public class TodoTool
 
         var priorityText = priority switch
         {
-            1 => "🟢 Bassa",
-            2 => "🟡 Media",
-            3 => "🔴 Alta",
+            1 => " Bassa",
+            2 => " Media",
+            3 => " Alta",
             _ => "Sconosciuta"
         };
 
@@ -91,20 +91,20 @@ public class TodoTool
 
         if (!todos.Any())
         {
-            return "📋 Nessun task trovato!";
+            return " Nessun task trovato!";
         }
 
-        var result = $"📋 **Lista Task** ({todos.Count} totali)\n\n";
+        var result = $" **Lista Task** ({todos.Count} totali)\n\n";
 
         foreach (var todo in todos)
         {
             var status = todo.IsCompleted ? "✓" : "○";
             var priority = todo.Priority switch
             {
-                1 => "🟢",
-                2 => "🟡",
-                3 => "🔴",
-                _ => "⚪"
+                1 => "bassa",
+                2 => "media",
+                3 => "alta",
+                _ => "sconosciuta"
             };
 
             result += $"{status} [{todo.Id}] {priority} {todo.Description}\n";
@@ -126,18 +126,18 @@ public class TodoTool
 
         if (todo == null)
         {
-            return $"❌ Task con ID {id} non trovato!";
+            return $" Task con ID {id} non trovato!";
         }
 
         if (todo.IsCompleted)
         {
-            return $"ℹ️ Il task '{todo.Description}' è già completato!";
+            return $"Il task '{todo.Description}' è già completato!";
         }
 
         todo.IsCompleted = true;
         await _db.SaveChangesAsync();
 
-        return $"✅ Task completato!\n" +
+        return $" Task completato!\n" +
                $"ID: {todo.Id}\n" +
                $"Descrizione: {todo.Description}";
     }
@@ -154,14 +154,14 @@ public class TodoTool
 
         if (todo == null)
         {
-            return $"❌ Task con ID {id} non trovato!";
+            return $" Task con ID {id} non trovato!";
         }
 
         var description = todo.Description;
         _db.TodoItems.Remove(todo);
         await _db.SaveChangesAsync();
 
-        return $"🗑️ Task eliminato!\n" +
+        return $" Task eliminato!\n" +
                $"ID: {id}\n" +
                $"Descrizione: {description}";
     }
@@ -177,21 +177,21 @@ public class TodoTool
     {
         if (string.IsNullOrWhiteSpace(newDescription))
         {
-            return "❌ Errore: La nuova descrizione non può essere vuota!";
+            return " Errore: La nuova descrizione non può essere vuota!";
         }
 
         var todo = await _db.TodoItems.FindAsync(id);
 
         if (todo == null)
         {
-            return $"❌ Task con ID {id} non trovato!";
+            return $" Task con ID {id} non trovato!";
         }
 
         var oldDescription = todo.Description;
         todo.Description = newDescription.Trim();
         await _db.SaveChangesAsync();
 
-        return $"✏️ Task aggiornato!\n" +
+        return $" Task aggiornato!\n" +
                $"ID: {id}\n" +
                $"Vecchia: {oldDescription}\n" +
                $"Nuova: {todo.Description}";
@@ -211,11 +211,11 @@ public class TodoTool
 
         var completionRate = total > 0 ? (completed * 100.0 / total) : 0;
 
-        return $"📊 **Statistiche Todo List**\n\n" +
-               $"📋 Totale task: {total}\n" +
-               $"✅ Completati: {completed}\n" +
-               $"⏳ In sospeso: {pending}\n" +
-               $"🔴 Alta priorità (non completati): {highPriority}\n" +
-               $"📈 Tasso completamento: {completionRate:F1}%";
+        return $" **Statistiche Todo List**\n\n" +
+               $" Totale task: {total}\n" +
+               $" Completati: {completed}\n" +
+               $" In sospeso: {pending}\n" +
+               $" Alta priorità (non completati): {highPriority}\n" +
+               $" Tasso completamento: {completionRate:F1}%";
     }
 }

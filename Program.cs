@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using ModelContextProtocol.Server;
 using MyTodoMcp.Data;
 using MyTodoMcp.Tools;
@@ -17,7 +18,7 @@ var existingCount = await db.TodoItems.CountAsync();
 Console.WriteLine($"Trovati {existingCount} task esistenti\n");
 
 // Configura il server MCP
-var builder = Host.CreateApplicationBuilder(args);
+var builder = IHost.CreateApplicationBuilder(args);
 
 // Registra i servizi
 builder.Services.AddSingleton<TodoDbContext>(db);
