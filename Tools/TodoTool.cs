@@ -67,11 +67,6 @@ public class TodoTool
             DueDate = parsedDueDate //  ASSEGNAZIONE CORRETTA
         };
 
-        // Debug: stampa i valori
-        Console.WriteLine($"DEBUG - DueDate ricevuta: {dueDate}");
-        Console.WriteLine($"DEBUG - DueDate parsata: {parsedDueDate}");
-        Console.WriteLine($"DEBUG - Todo.DueDate: {todo.DueDate}");
-
         _db.TodoItems.Add(todo);
         await _db.SaveChangesAsync();
 
