@@ -29,4 +29,10 @@ public class TodoItem
     /// Priorità: 1=Bassa, 2=Media, 3=Alta
     /// </summary>
     public int Priority { get; set; } = 2;
+
+     /// <summary>
+    /// Scadenza del task (opzionale)
+    /// </summary>
+    public DateTime? DueDate { get; set; }
+
 }

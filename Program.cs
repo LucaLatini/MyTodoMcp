@@ -8,28 +8,30 @@ using MyTodoMcp.Data;
 using MyTodoMcp.Tools;
 using System.Reflection;
 
-// NESSUN Console.WriteLine all'inizio
-
-using var db = new TodoDbContext();
-
-// La creazione del database deve avvenire in silenzio
-await db.Database.EnsureCreatedAsync();
-
 var builder = Host.CreateApplicationBuilder(args);
 
 // Disattiva il logging di default sulla console per non "sporcare" l'output
 builder.Logging.ClearProviders();
 
-builder.Services.AddSingleton<TodoDbContext>(db);
+// Registra il DbContext nel servizio di dependency injection
+builder.Services.AddDbContext<TodoDbContext>();
+
 builder.Services.AddScoped<TodoTool>();
 
 // Configura il server MCP
 builder.Services.AddMcpServer()
-.WithToolsFromAssembly(typeof(Program).Assembly)
-.WithStdioServerTransport();
+    .WithToolsFromAssembly(typeof(Program).Assembly)
+    .WithStdioServerTransport();
 
 var host = builder.Build();
 
-// NESSUN Console.WriteLine prima di RunAsync
+// Blocco per creare il database all'avvio (opzionale)
+// Questo assicura che il database sia creato al primo avvio dell'applicazione
+using (var scope = host.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<TodoDbContext>();
+    await dbContext.Database.EnsureCreatedAsync();
+}
 
 await host.RunAsync();

@@ -26,17 +26,36 @@ public class TodoTool
     [Description("Aggiunge un nuovo task alla lista")]
     public async Task<string> AddTodoAsync(
         [Description("Descrizione del task")] string description,
-        [Description("Priorità: 1=Bassa, 2=Media, 3=Alta (default: 2)")] int priority = 2)
+        [Description("Priorità: 1=Bassa, 2=Media, 3=Alta (default: 2)")] int priority = 2,
+        [Description("Data di scadenza (formato: yyyy-MM-dd), opzionale")] string? dueDate = null) // ✅ Cambiato in string
     {
         // Validazione input
         if (string.IsNullOrWhiteSpace(description))
         {
-            return " Errore: La descrizione non può essere vuota!";
+            return "Errore: La descrizione non può essere vuota!";
         }
 
         if (priority < 1 || priority > 3)
         {
-            return " Errore: La priorità deve essere 1, 2 o 3!";
+            return "Errore: La priorità deve essere 1, 2 o 3!";
+        }
+
+        // ✅ PARSING CORRETTO DELLA DATA
+        DateTime? parsedDueDate = null;
+        if (!string.IsNullOrWhiteSpace(dueDate))
+        {
+            if (DateTime.TryParse(dueDate, out var date))
+            {
+                if (date.Date < DateTime.UtcNow.Date)
+                {
+                    return "Errore: La scadenza non può essere nel passato!";
+                }
+                parsedDueDate = date;
+            }
+            else
+            {
+                return "Errore: Formato data non valido! Usa yyyy-MM-dd";
+            }
         }
 
         // Crea nuovo todo
@@ -44,25 +63,35 @@ public class TodoTool
         {
             Description = description.Trim(),
             Priority = priority,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            DueDate = parsedDueDate //  ASSEGNAZIONE CORRETTA
         };
 
-        // Salva nel database
+        // Debug: stampa i valori
+        Console.WriteLine($"DEBUG - DueDate ricevuta: {dueDate}");
+        Console.WriteLine($"DEBUG - DueDate parsata: {parsedDueDate}");
+        Console.WriteLine($"DEBUG - Todo.DueDate: {todo.DueDate}");
+
         _db.TodoItems.Add(todo);
         await _db.SaveChangesAsync();
 
         var priorityText = priority switch
         {
-            1 => " Bassa",
-            2 => " Media",
-            3 => " Alta",
+            1 => "Bassa",
+            2 => "Media",
+            3 => "Alta",
             _ => "Sconosciuta"
         };
 
-        return $"✅ Task aggiunto con successo!\n" +
-               $"ID: {todo.Id}\n" +
-               $"Descrizione: {todo.Description}\n" +
-               $"Priorità: {priorityText}";
+        var result = $"Task aggiunto con successo!\n" +
+                     $"ID: {todo.Id}\n" +
+                     $"Descrizione: {todo.Description}\n" +
+                     $"Priorità: {priorityText}";
+
+        if (parsedDueDate.HasValue)
+            result += $"\nScadenza: {parsedDueDate.Value:dd/MM/yyyy}";
+
+        return result;
     }
 
     /// <summary>

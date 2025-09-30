@@ -26,7 +26,7 @@ public class TodoDbContext : DbContext
         options.UseSqlite($"Data Source={DbPath}");
         
         // Abilita logging delle query SQL (utile per debug)
-        options.LogTo(Console.WriteLine, LogLevel.Information);
+        //options.LogTo(Console.WriteLine, LogLevel.Information);
     }
 
     /// <summary>
@@ -63,6 +63,9 @@ public class TodoDbContext : DbContext
 
             // Indice per ricerche più veloci
             entity.HasIndex(e => e.IsCompleted);
+
+            entity.Property(e => e.DueDate)
+                .IsRequired(false);
         });
     }
 }
