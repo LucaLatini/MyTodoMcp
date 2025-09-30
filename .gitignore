@@ -1,0 +1,33 @@
+# File di configurazione specifici dell'utente
+*.user
+*.suo
+*.sln.docstates
+
+# File di configurazione di Visual Studio e VS Code
+.vs/
+.vscode/
+
+# Risultati della compilazione e artefatti
+[Bb]in/
+[Oo]bj/
+
+# Database locale
+*.db
+*.db-journal
+
+# File generati da Rider
+.idea/
+
+# Pacchetti NuGet
+*.nupkg
+packages/
+
+# File di log e di test
+*.log
+*.trx
+TestResults/
+
+# File di sistema operativo
+[Tt]humbs.db
+*~
+.DS_Store
