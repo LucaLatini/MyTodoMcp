@@ -66,6 +66,9 @@ public class TodoDbContext : DbContext
 
             entity.Property(e => e.DueDate)
                 .IsRequired(false);
+            entity.Property(e => e.Category)
+                .IsRequired()
+                .HasMaxLength(100);
         });
     }
 }

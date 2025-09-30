@@ -11,8 +11,8 @@ using MyTodoMcp.Data;
 namespace MyTodoMcp.Migrations
 {
     [DbContext(typeof(TodoDbContext))]
-    [Migration("20250929160347_AggiuntaScadenza")]
-    partial class AggiuntaScadenza
+    [Migration("20250930091009_AggiuntaCategoria")]
+    partial class AggiuntaCategoria
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,11 @@ namespace MyTodoMcp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");

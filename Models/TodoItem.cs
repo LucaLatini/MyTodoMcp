@@ -30,9 +30,15 @@ public class TodoItem
     /// </summary>
     public int Priority { get; set; } = 2;
 
-     /// <summary>
+    /// <summary>
     /// Scadenza del task (opzionale)
     /// </summary>
     public DateTime? DueDate { get; set; }
+    
+    /// <summary>
+    /// Categoria del task
+    ///   </summary>
+    /// <remarks>Nuova proprietà per categorizzare i task</remarks>
+    public string Category { get; set; } = "Generale";
 
 }

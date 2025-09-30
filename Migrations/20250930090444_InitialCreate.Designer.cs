@@ -11,7 +11,7 @@ using MyTodoMcp.Data;
 namespace MyTodoMcp.Migrations
 {
     [DbContext(typeof(TodoDbContext))]
-    [Migration("20250929155850_InitialCreate")]
+    [Migration("20250930090444_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,6 +32,9 @@ namespace MyTodoMcp.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DueDate")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsCompleted")

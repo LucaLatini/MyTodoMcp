@@ -27,11 +27,11 @@ var host = builder.Build();
 
 // Blocco per creare il database all'avvio (opzionale)
 // Questo assicura che il database sia creato al primo avvio dell'applicazione
-using (var scope = host.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var dbContext = services.GetRequiredService<TodoDbContext>();
-    await dbContext.Database.EnsureCreatedAsync();
-}
+//using (var scope = host.Services.CreateScope())
+//{
+  //  var services = scope.ServiceProvider;
+    //var dbContext = services.GetRequiredService<TodoDbContext>();
+    //await dbContext.Database.EnsureCreatedAsync();
+//}
 
 await host.RunAsync();

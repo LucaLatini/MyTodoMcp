@@ -20,7 +20,8 @@ namespace MyTodoMcp.Migrations
                     Description = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Priority = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 2)
+                    Priority = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 2),
+                    DueDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

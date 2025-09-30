@@ -1,28 +1,29 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace MyTodoMcp.Migrations
 {
     /// <inheritdoc />
-    public partial class AggiuntaScadenza : Migration
+    public partial class AggiuntaCategoria : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<DateTime>(
-                name: "DueDate",
+            migrationBuilder.AddColumn<string>(
+                name: "Category",
                 table: "TodoItems",
                 type: "TEXT",
-                nullable: true);
+                maxLength: 100,
+                nullable: false,
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "DueDate",
+                name: "Category",
                 table: "TodoItems");
         }
     }

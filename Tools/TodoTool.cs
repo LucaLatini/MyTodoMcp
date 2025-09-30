@@ -27,7 +27,8 @@ public class TodoTool
     public async Task<string> AddTodoAsync(
         [Description("Descrizione del task")] string description,
         [Description("Priorità: 1=Bassa, 2=Media, 3=Alta (default: 2)")] int priority = 2,
-        [Description("Data di scadenza (formato: yyyy-MM-dd), opzionale")] string? dueDate = null) // ✅ Cambiato in string
+        [Description("Data di scadenza (formato: yyyy-MM-dd), opzionale")] string? dueDate = null, // ✅ Cambiato in string
+        [Description("Categoria del task")] string category = "Generale")
     {
         // Validazione input
         if (string.IsNullOrWhiteSpace(description))
@@ -58,13 +59,15 @@ public class TodoTool
             }
         }
 
+
         // Crea nuovo todo
         var todo = new TodoItem
         {
             Description = description.Trim(),
             Priority = priority,
             CreatedAt = DateTime.UtcNow,
-            DueDate = parsedDueDate //  ASSEGNAZIONE CORRETTA
+            DueDate = parsedDueDate, //  ASSEGNAZIONE CORRETTA
+            Category = string.IsNullOrWhiteSpace(category) ? "Generale" : category.Trim()
         };
 
         _db.TodoItems.Add(todo);
@@ -85,6 +88,7 @@ public class TodoTool
 
         if (parsedDueDate.HasValue)
             result += $"\nScadenza: {parsedDueDate.Value:dd/MM/yyyy}";
+        result += $"\nCategoria: {todo.Category}";
 
         return result;
     }
@@ -241,5 +245,49 @@ public class TodoTool
                $" In sospeso: {pending}\n" +
                $" Alta priorità (non completati): {highPriority}\n" +
                $" Tasso completamento: {completionRate:F1}%";
+    }
+
+    /// <summary>
+    /// cerca task di una determinata categoria
+    /// </summary>
+    [McpServerTool(Name = "search_todos", Title = "Cerca task per categoria")]
+    [Description("Cerca task per categoria")]
+    public async Task<string> SearchTodosByCategoryAsync(
+        [Description("Categoria da cercare")] string category)
+    {
+        if (string.IsNullOrWhiteSpace(category))
+        {
+            return "Errore: La categoria non può essere vuota!";
+        }
+
+        var todos = await _db.TodoItems
+            .Where(t => t.Category.ToLower() == category.Trim().ToLower())
+            .OrderByDescending(t => t.Priority)
+            .ThenBy(t => t.CreatedAt)
+            .ToListAsync();
+
+        if (!todos.Any())
+        {
+            return $"Nessun task trovato nella categoria '{category}'!";
+        }
+
+        var result = $"**Task nella categoria '{category}'** ({todos.Count} totali)\n\n";
+
+        foreach (var todo in todos)
+        {
+            var status = todo.IsCompleted ? "✓" : "○";
+            var priority = todo.Priority switch
+            {
+                1 => "bassa",
+                2 => "media",
+                3 => "alta",
+                _ => "sconosciuta"
+            };
+
+            result += $"{status} [{todo.Id}] {priority} {todo.Description}\n";
+            result += $"   Creato: {todo.CreatedAt:dd/MM/yyyy HH:mm}\n\n";
+        }
+
+        return result;
     }
 }
